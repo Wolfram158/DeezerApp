@@ -1,4 +1,4 @@
-package android.learn.di
+package android.learn.list.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
