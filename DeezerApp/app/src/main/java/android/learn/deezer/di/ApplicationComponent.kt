@@ -1,6 +1,7 @@
-package android.learn.di
+package android.learn.deezer.di
 
-import android.learn.found.presentation.FoundTracksFragment
+import android.learn.deezer.App
+import android.learn.deezer.FoundTracksFragment
 import dagger.Component
 
 @ApplicationScope

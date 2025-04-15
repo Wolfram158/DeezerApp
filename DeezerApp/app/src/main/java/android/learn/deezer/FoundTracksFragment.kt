@@ -1,12 +1,11 @@
-package android.learn.found.presentation
+package android.learn.deezer
 
 import android.content.Context
 import android.learn.found.databinding.FragmentFoundTracksBinding
+import android.learn.found.presentation.FoundTracksViewModel
 import android.learn.list.presentation.ViewModelFactory
 import android.learn.list.presentation.adapter.TracksAdapter
-import android.learn.utils.Error
 import android.learn.utils.Progress
-import android.learn.utils.Result
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View

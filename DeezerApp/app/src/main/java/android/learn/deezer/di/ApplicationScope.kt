@@ -1,4 +1,4 @@
-package android.learn.di
+package android.learn.deezer.di
 
 import javax.inject.Scope
 

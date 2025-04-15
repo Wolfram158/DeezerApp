@@ -1,4 +1,4 @@
-package android.learn.di
+package android.learn.deezer.di
 
 import androidx.lifecycle.ViewModel
 import dagger.MapKey
