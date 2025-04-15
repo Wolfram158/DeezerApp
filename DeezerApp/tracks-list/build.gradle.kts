@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "android.learn.data"
+    namespace = "android.learn.list"
     compileSdk = 35
 
     defaultConfig {
@@ -30,18 +30,16 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
 
     implementation(project(":utils"))
-    implementation(project(":tracks-list"))
 
-    implementation(libs.ok.http)
-    implementation(libs.ok.http.log)
-
-    implementation(libs.retrofit.gson)
-    implementation(libs.retrofit)
+    implementation(libs.coil)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
