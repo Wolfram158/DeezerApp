@@ -23,4 +23,5 @@ rootProject.name = "DeezerApp"
 include(":app")
 include(":data")
 include(":utils")
+include(":feature-found-tracks")
 include(":tracks-list")
