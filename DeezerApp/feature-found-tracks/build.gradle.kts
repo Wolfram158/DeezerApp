@@ -35,6 +35,7 @@ android {
 dependencies {
 
     implementation(project(":data"))
+    implementation(project(":tracks-list"))
 
     implementation(libs.dagger)
 

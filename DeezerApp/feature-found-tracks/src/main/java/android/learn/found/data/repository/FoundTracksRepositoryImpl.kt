@@ -1,10 +1,9 @@
 package android.learn.found.data.repository
 
+import android.learn.data.data.mapper.mapToTracks
 import android.learn.data.data.network.ApiService
-import android.learn.deezer.data.mapper.mapToTracks
-import android.learn.deezer.data.network.ApiService
-import android.learn.found.domain.Track
 import android.learn.found.domain.FoundTracksRepository
+import android.learn.list.domain.Track
 import javax.inject.Inject
 
 class FoundTracksRepositoryImpl @Inject constructor(
