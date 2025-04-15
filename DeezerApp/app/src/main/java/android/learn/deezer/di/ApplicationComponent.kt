@@ -1,5 +1,6 @@
-package android.learn.di
+package android.learn.deezer.di
 
+import android.learn.deezer.App
 import dagger.Component
 
 @ApplicationScope

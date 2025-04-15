@@ -1,4 +1,4 @@
-package android.learn.di
+package android.learn.deezer.di
 
 import android.learn.data.data.network.ApiFactory
 import android.learn.data.data.network.ApiService

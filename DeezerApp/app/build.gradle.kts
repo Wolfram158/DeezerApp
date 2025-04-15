@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -39,6 +40,12 @@ android {
 }
 
 dependencies {
+    implementation(project(":data"))
+
+    implementation(libs.dagger)
+    implementation(libs.dagger.support)
+    ksp(libs.dagger.compiler)
+    ksp(libs.dagger.processor)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
