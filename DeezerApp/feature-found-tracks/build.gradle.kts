@@ -39,8 +39,14 @@ dependencies {
 
     implementation(project(":data"))
     implementation(project(":tracks-list"))
+    implementation(project(":utils"))
 
     implementation(libs.dagger)
+
+    implementation(libs.coroutines.core)
+    implementation(libs.coroutines.android)
+
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

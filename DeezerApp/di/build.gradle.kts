@@ -36,6 +36,7 @@ android {
 dependencies {
 
     implementation(project(":data"))
+    implementation(project(":feature-found-tracks"))
 
     implementation(libs.dagger)
     implementation(libs.dagger.support)

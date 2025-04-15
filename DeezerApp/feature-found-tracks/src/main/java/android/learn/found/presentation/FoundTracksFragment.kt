@@ -14,7 +14,11 @@ class FoundTracksFragment : Fragment() {
     }
 
     private val adapter by lazy {
-        TracksAdapter()
+        TracksAdapter(onGotoTrackListener = object: TracksAdapter.OnGotoTrackListener {
+            override fun onGotoTrack() {
+                TODO("Not yet implemented")
+            }
+        })
     }
 
     override fun onCreateView(
