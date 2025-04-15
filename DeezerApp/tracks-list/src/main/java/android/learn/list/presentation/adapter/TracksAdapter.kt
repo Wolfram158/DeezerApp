@@ -7,9 +7,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import coil.load
 
-class TracksAdapter : ListAdapter<Track, TrackViewHolder>(
-    TrackDiffUtilCallback()
-) {
+class TracksAdapter(private val onGotoTrackListener: OnGotoTrackListener) :
+    ListAdapter<Track, TrackViewHolder>(
+        TrackDiffUtilCallback()
+    ) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrackViewHolder {
         ItemTrackBinding.inflate(
             LayoutInflater.from(parent.context),
@@ -25,6 +26,13 @@ class TracksAdapter : ListAdapter<Track, TrackViewHolder>(
             trackName.text = item.title
             trackAuthor.text = item.artistName
             trackImage.load(item.albumImageLink)
+            root.setOnClickListener {
+                onGotoTrackListener
+            }
         }
+    }
+
+    interface OnGotoTrackListener {
+        fun onGotoTrack()
     }
 }
