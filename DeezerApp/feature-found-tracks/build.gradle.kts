@@ -1,21 +1,17 @@
 plugins {
-    alias(libs.plugins.android.application)
+    alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.ksp)
 }
 
 android {
-    namespace = "android.learn.deezer"
+    namespace = "android.learn.found"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "android.learn.deezer"
         minSdk = 24
-        targetSdk = 35
-        versionCode = 1
-        versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
@@ -40,28 +36,21 @@ android {
 }
 
 dependencies {
+
     implementation(project(":data"))
-    implementation(project(":feature-found-tracks"))
-    implementation(project(":utils"))
     implementation(project(":tracks-list"))
+    implementation(project(":utils"))
 
     implementation(libs.dagger)
-    implementation(libs.dagger.support)
-    ksp(libs.dagger.compiler)
-    ksp(libs.dagger.processor)
 
-    implementation(libs.media3.ui)
-    implementation(libs.media3.exoplayer)
-    implementation(libs.media3.exoplayer.dash)
+    implementation(libs.coroutines.core)
+    implementation(libs.coroutines.android)
+
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
-    implementation(libs.androidx.constraintlayout)
-    implementation(libs.androidx.lifecycle.livedata.ktx)
-    implementation(libs.androidx.lifecycle.viewmodel.ktx)
-    implementation(libs.androidx.navigation.fragment.ktx)
-    implementation(libs.androidx.navigation.ui.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
