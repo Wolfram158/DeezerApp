@@ -1,9 +1,9 @@
 package android.learn.utils
 
-sealed class State
+sealed class State<T>
 
-class Error: State()
+class Error<T>: State<T>()
 
-class Progress: State()
+class Progress<T>: State<T>()
 
-class Result<out T>(val result: T): State()
+class Result<T>(val result: T): State<T>()
