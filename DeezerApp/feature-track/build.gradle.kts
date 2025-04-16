@@ -30,9 +30,17 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+    buildFeatures {
+        viewBinding = true
+    }
+
 }
 
 dependencies {
+
+    implementation(libs.media3.ui)
+    implementation(libs.media3.exoplayer)
+    implementation(libs.media3.exoplayer.dash)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

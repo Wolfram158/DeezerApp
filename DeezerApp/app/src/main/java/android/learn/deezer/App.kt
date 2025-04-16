@@ -1,15 +1,16 @@
 package android.learn.deezer
 
 import android.app.Application
-import javax.inject.Inject
+import android.learn.deezer.di.ApplicationComponent
+import android.learn.deezer.di.DaggerApplicationComponent
 
 class App : Application() {
-    //lateinit var component: DaggerApplicationComponent by lazy {
-    //    DaggerApplicationComponent.create()
-    //}
+    val component: ApplicationComponent by lazy {
+        DaggerApplicationComponent.create()
+    }
 
     override fun onCreate() {
-        //component.inject(this)
+        component.inject(this)
         super.onCreate()
     }
 }
