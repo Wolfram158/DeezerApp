@@ -1,11 +1,12 @@
 package android.learn.deezer
 
 import android.app.Application
+import android.learn.deezer.di.ApplicationComponent
 import android.learn.deezer.di.DaggerApplicationComponent
 import javax.inject.Inject
 
 class App : Application() {
-    private val component: DaggerApplicationComponent by lazy {
+    val component: ApplicationComponent by lazy {
         DaggerApplicationComponent.create()
     }
 

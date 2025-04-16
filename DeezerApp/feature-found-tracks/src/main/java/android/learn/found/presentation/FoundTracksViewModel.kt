@@ -1,6 +1,7 @@
 package android.learn.found.presentation
 
 import android.learn.found.domain.LoadTracksUseCase
+import android.learn.list.domain.Track
 import android.learn.utils.Error
 import android.learn.utils.Progress
 import android.learn.utils.Result
@@ -15,8 +16,8 @@ import javax.inject.Inject
 class FoundTracksViewModel @Inject constructor(
     private val loadTracksUseCase: LoadTracksUseCase
 ) : ViewModel() {
-    private val _tracksState: MutableStateFlow<State> = MutableStateFlow(Progress())
-    val tracksState: StateFlow<State>
+    private val _tracksState: MutableStateFlow<State<List<Track>>> = MutableStateFlow(Progress())
+    val tracksState: StateFlow<State<List<Track>>>
         get() = _tracksState
 
     fun loadTrack(query: String?, limit: Int) {

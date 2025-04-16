@@ -3,9 +3,12 @@ package android.learn.deezer
 import android.content.Context
 import android.learn.found.databinding.FragmentFoundTracksBinding
 import android.learn.found.presentation.FoundTracksViewModel
+import android.learn.list.domain.Track
 import android.learn.list.presentation.ViewModelFactory
 import android.learn.list.presentation.adapter.TracksAdapter
+import android.learn.utils.Error
 import android.learn.utils.Progress
+import android.learn.utils.Result
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,15 +21,15 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class FoundTracksFragment : Fragment() {
-    private val binding by lazy {
-        FragmentFoundTracksBinding.inflate(layoutInflater)
-    }
+    private var _binding: FragmentFoundTracksBinding? = null
+    private val binding: FragmentFoundTracksBinding
+        get() = _binding ?: throw RuntimeException("FragmentFoundTracksBinding is null")
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
     private val adapter by lazy {
-        TracksAdapter(onGotoTrackListener = object: TracksAdapter.OnGotoTrackListener {
+        TracksAdapter(onGotoTrackListener = object : TracksAdapter.OnGotoTrackListener {
             override fun onGotoTrack() {
                 TODO("Not yet implemented")
             }
@@ -51,6 +54,7 @@ class FoundTracksFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        _binding = FragmentFoundTracksBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -59,6 +63,26 @@ class FoundTracksFragment : Fragment() {
 
         setupRecyclerView()
         setupViewModel()
+        setupButtons()
+
+        viewModel.loadChart(limit = 30)
+
+    }
+
+    private fun setupButtons() {
+        binding.tryLoadButton.setOnClickListener {
+            when (val text = binding.editQuery.text.toString().trim()) {
+                "" -> viewModel.loadChart(limit = 30)
+                else -> viewModel.loadTrack(text, limit = 30)
+            }
+        }
+
+        binding.findButton.setOnClickListener {
+            when (val text = binding.editQuery.text.toString().trim()) {
+                "" -> {}
+                else -> viewModel.loadTrack(text, limit = 30)
+            }
+        }
     }
 
     private fun setupRecyclerView() {
@@ -69,9 +93,26 @@ class FoundTracksFragment : Fragment() {
         lifecycleScope.launch {
             viewModel.tracksState.collectLatest {
                 when (it) {
-                    is Error -> TODO()
-                    is Progress -> TODO()
-                    is Result<*> -> TODO()
+                    is Error -> {
+                        binding.errorText.visibility = View.VISIBLE
+                        binding.tryLoadButton.visibility = View.VISIBLE
+                        binding.progressBar.visibility = View.GONE
+                    }
+
+                    is Progress -> {
+                        binding.errorText.visibility = View.GONE
+                        binding.tryLoadButton.visibility = View.GONE
+                        binding.progressBar.visibility = View.VISIBLE
+                    }
+
+                    is Result<*> -> {
+                        binding.errorText.visibility = View.GONE
+                        binding.tryLoadButton.visibility = View.GONE
+                        binding.progressBar.visibility = View.GONE
+                        adapter.submitList(
+                            (it as Result<List<Track>>).result
+                        )
+                    }
                 }
             }
         }
