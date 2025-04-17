@@ -23,6 +23,9 @@ class TrackFragment : Fragment() {
     }
 
     companion object {
+        const val POSITION = "position"
+        const val TRACKS = "tracks"
+
         fun newInstance(param1: String, param2: String) =
             TrackFragment().apply {
                 arguments = Bundle().apply {

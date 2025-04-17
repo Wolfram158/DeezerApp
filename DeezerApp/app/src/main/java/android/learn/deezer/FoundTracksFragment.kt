@@ -33,9 +33,13 @@ class FoundTracksFragment : Fragment() {
 
     private val adapter by lazy {
         TracksAdapter(onGotoTrackListener = object : TracksAdapter.OnGotoTrackListener {
-            override fun onGotoTrack() {
+            override fun onGotoTrack(position: Int, tracks: List<Track>) {
                 val navController = findNavController()
-                navController.navigate(R.id.action_navigation_home_to_navigation_track)
+                val bundle = Bundle().apply {
+                    putParcelableArray(TrackFragment.TRACKS, tracks.toTypedArray())
+                    putInt(TrackFragment.POSITION, position)
+                }
+                navController.navigate(R.id.action_navigation_home_to_navigation_track, bundle)
             }
         })
     }

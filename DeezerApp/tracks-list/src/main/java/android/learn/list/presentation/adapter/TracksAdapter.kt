@@ -27,12 +27,12 @@ class TracksAdapter(private val onGotoTrackListener: OnGotoTrackListener) :
             trackAuthor.text = item.artistName
             trackImage.load(item.albumImageLink)
             root.setOnClickListener {
-                onGotoTrackListener.onGotoTrack()
+                onGotoTrackListener.onGotoTrack(position, currentList)
             }
         }
     }
 
     interface OnGotoTrackListener {
-        fun onGotoTrack()
+        fun onGotoTrack(position: Int, tracks: List<Track>)
     }
 }
