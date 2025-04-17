@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -38,9 +39,17 @@ android {
 
 dependencies {
 
+    implementation(libs.dagger)
+    implementation(libs.dagger.support)
+    ksp(libs.dagger.compiler)
+    ksp(libs.dagger.processor)
+
     implementation(libs.media3.ui)
     implementation(libs.media3.exoplayer)
     implementation(libs.media3.exoplayer.dash)
+
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

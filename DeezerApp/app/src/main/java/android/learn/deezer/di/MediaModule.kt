@@ -3,6 +3,7 @@ package android.learn.deezer.di
 import android.app.Application
 import android.content.ComponentName
 import android.learn.track.data.MediaService
+import android.util.Log
 import androidx.media3.session.MediaController
 import androidx.media3.session.SessionToken
 import com.google.common.util.concurrent.ListenableFuture

@@ -46,6 +46,8 @@ dependencies {
     implementation(project(":tracks-list"))
     implementation(project(":feature-track"))
 
+    implementation(libs.coil)
+
     implementation(libs.dagger)
     implementation(libs.dagger.support)
     implementation(libs.androidx.media3.session)
