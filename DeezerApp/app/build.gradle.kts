@@ -44,9 +44,11 @@ dependencies {
     implementation(project(":feature-found-tracks"))
     implementation(project(":utils"))
     implementation(project(":tracks-list"))
+    implementation(project(":feature-track"))
 
     implementation(libs.dagger)
     implementation(libs.dagger.support)
+    implementation(libs.androidx.media3.session)
     ksp(libs.dagger.compiler)
     ksp(libs.dagger.processor)
 

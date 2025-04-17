@@ -6,7 +6,7 @@ import android.learn.deezer.di.DaggerApplicationComponent
 
 class App : Application() {
     val component: ApplicationComponent by lazy {
-        DaggerApplicationComponent.create()
+        DaggerApplicationComponent.factory().create(this)
     }
 
     override fun onCreate() {

@@ -23,6 +23,7 @@ coil = "2.6.0"
 dagger = "2.51"
 jetbrainsKotlinJvm = "2.0.21"
 media = "1.6.1"
+media3Session = "1.6.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -53,6 +54,7 @@ dagger-compiler = { group = "com.google.dagger", name = "dagger-compiler", versi
 media3-exoplayer = { group = "androidx.media3", name = "media3-exoplayer", version = "1.6.1" }
 media3-exoplayer-dash = { group = "androidx.media3", name = "media3-exoplayer-dash", version = "1.6.1" }
 media3-ui = { group = "androidx.media3", name = "media3-ui", version = "1.6.1" }
+androidx-media3-session = { group = "androidx.media3", name = "media3-session", version.ref = "media3Session" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
