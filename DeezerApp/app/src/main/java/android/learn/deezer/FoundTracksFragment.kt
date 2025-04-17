@@ -1,8 +1,8 @@
 package android.learn.deezer
 
 import android.content.Context
-import android.learn.found.databinding.FragmentFoundTracksBinding
 import android.learn.found.presentation.FoundTracksViewModel
+import android.learn.list.databinding.FragmentTracksBinding
 import android.learn.list.domain.Track
 import android.learn.list.presentation.ViewModelFactory
 import android.learn.list.presentation.adapter.TracksAdapter
@@ -14,16 +14,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class FoundTracksFragment : Fragment() {
-    private var _binding: FragmentFoundTracksBinding? = null
-    private val binding: FragmentFoundTracksBinding
-        get() = _binding ?: throw RuntimeException("FragmentFoundTracksBinding is null")
+    private var _binding: FragmentTracksBinding? = null
+    private val binding: FragmentTracksBinding
+        get() = _binding ?: throw RuntimeException("FragmentTracksBinding is null")
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -31,7 +34,8 @@ class FoundTracksFragment : Fragment() {
     private val adapter by lazy {
         TracksAdapter(onGotoTrackListener = object : TracksAdapter.OnGotoTrackListener {
             override fun onGotoTrack() {
-                TODO("Not yet implemented")
+                val navController = findNavController()
+                navController.navigate(R.id.action_navigation_home_to_navigation_track)
             }
         })
     }
@@ -54,7 +58,7 @@ class FoundTracksFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentFoundTracksBinding.inflate(inflater, container, false)
+        _binding = FragmentTracksBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -65,7 +69,9 @@ class FoundTracksFragment : Fragment() {
         setupViewModel()
         setupButtons()
 
-        viewModel.loadChart(limit = 30)
+        if (savedInstanceState == null) {
+            viewModel.loadChart(limit = 30)
+        }
 
     }
 
@@ -79,7 +85,7 @@ class FoundTracksFragment : Fragment() {
 
         binding.findButton.setOnClickListener {
             when (val text = binding.editQuery.text.toString().trim()) {
-                "" -> {}
+                "" -> viewModel.loadChart(limit = 30)
                 else -> viewModel.loadTrack(text, limit = 30)
             }
         }
@@ -91,27 +97,29 @@ class FoundTracksFragment : Fragment() {
 
     private fun setupViewModel() {
         lifecycleScope.launch {
-            viewModel.tracksState.collectLatest {
-                when (it) {
-                    is Error -> {
-                        binding.errorText.visibility = View.VISIBLE
-                        binding.tryLoadButton.visibility = View.VISIBLE
-                        binding.progressBar.visibility = View.GONE
-                    }
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.tracksState.collectLatest {
+                    when (it) {
+                        is Error -> {
+                            binding.errorText.visibility = View.VISIBLE
+                            binding.tryLoadButton.visibility = View.VISIBLE
+                            binding.progressBar.visibility = View.GONE
+                        }
 
-                    is Progress -> {
-                        binding.errorText.visibility = View.GONE
-                        binding.tryLoadButton.visibility = View.GONE
-                        binding.progressBar.visibility = View.VISIBLE
-                    }
+                        is Progress -> {
+                            binding.errorText.visibility = View.GONE
+                            binding.tryLoadButton.visibility = View.GONE
+                            binding.progressBar.visibility = View.VISIBLE
+                        }
 
-                    is Result<*> -> {
-                        binding.errorText.visibility = View.GONE
-                        binding.tryLoadButton.visibility = View.GONE
-                        binding.progressBar.visibility = View.GONE
-                        adapter.submitList(
-                            (it as Result<List<Track>>).result
-                        )
+                        is Result<*> -> {
+                            binding.errorText.visibility = View.GONE
+                            binding.tryLoadButton.visibility = View.GONE
+                            binding.progressBar.visibility = View.GONE
+                            adapter.submitList(
+                                (it as Result<List<Track>>).result
+                            )
+                        }
                     }
                 }
             }

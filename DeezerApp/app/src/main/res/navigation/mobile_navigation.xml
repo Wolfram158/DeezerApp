@@ -7,19 +7,23 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="android.learn.deezer.ui.home.HomeFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        android:name="android.learn.deezer.FoundTracksFragment"
+        android:label="@string/found"
+        tools:layout="@layout/fragment_tracks" >
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_track"
+            app:destination="@id/navigation_track" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="android.learn.deezer.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:name="android.learn.deezer.TrackFragment"
+        android:label="@string/loaded"
+        tools:layout="@layout/fragment_tracks" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="android.learn.deezer.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_track"
+        android:name="android.learn.deezer.TrackFragment"
+        tools:layout="@layout/fragment_tracks" />
+
 </navigation>

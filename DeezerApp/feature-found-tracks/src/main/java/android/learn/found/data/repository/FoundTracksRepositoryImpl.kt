@@ -13,6 +13,6 @@ class FoundTracksRepositoryImpl @Inject constructor(
         if (query == null) {
             return apiService.loadChart(limit).tracks.data.mapToTracks()
         }
-        return apiService.loadTracks(query, limit).tracks.data.mapToTracks()
+        return apiService.loadTracks(query, limit).data.mapToTracks()
     }
 }

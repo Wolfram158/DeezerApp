@@ -27,7 +27,7 @@ class TracksAdapter(private val onGotoTrackListener: OnGotoTrackListener) :
             trackAuthor.text = item.artistName
             trackImage.load(item.albumImageLink)
             root.setOnClickListener {
-                onGotoTrackListener
+                onGotoTrackListener.onGotoTrack()
             }
         }
     }

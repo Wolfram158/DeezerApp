@@ -6,6 +6,7 @@ import android.learn.utils.Error
 import android.learn.utils.Progress
 import android.learn.utils.Result
 import android.learn.utils.State
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -26,7 +27,7 @@ class FoundTracksViewModel @Inject constructor(
             try {
                 val tracks = loadTracksUseCase(query = query, limit = limit)
                 _tracksState.emit(Result(tracks))
-            } catch (_: Exception) {
+            } catch (e: Exception) {
                 _tracksState.emit(Error())
             }
         }

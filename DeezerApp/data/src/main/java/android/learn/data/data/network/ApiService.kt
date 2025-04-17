@@ -1,5 +1,6 @@
 package android.learn.data.data.network
 
+import android.learn.data.data.network.dto.DataDto
 import android.learn.data.data.network.dto.ResponseDto
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -9,5 +10,5 @@ interface ApiService {
     suspend fun loadChart(@Query("limit") limit: Int = 15): ResponseDto
 
     @GET("/search")
-    suspend fun loadTracks(@Query("query") query: String, @Query("limit") limit: Int = 15): ResponseDto
+    suspend fun loadTracks(@Query("q") query: String, @Query("limit") limit: Int = 15): DataDto
 }
