@@ -15,6 +15,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
@@ -71,11 +72,17 @@ class FoundTracksFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.editQuery.addTextChangedListener {
+            viewModel.searchDebounced(it.toString(), limit = 30, 500L)
+        }
+        
         setupRecyclerView()
         setupViewModel()
         setupButtons()
 
-        if (savedInstanceState == null) {
+        if (viewModel.content !is FoundTracksViewModel.Content.Empty) {
+            adapter.submitList((viewModel.content as FoundTracksViewModel.Content.Tracks).tracks)
+        } else if (savedInstanceState == null) {
             viewModel.loadChart(limit = 30)
         }
 
@@ -83,13 +90,6 @@ class FoundTracksFragment : Fragment() {
 
     private fun setupButtons() {
         binding.tryLoadButton.setOnClickListener {
-            when (val text = binding.editQuery.text.toString().trim()) {
-                "" -> viewModel.loadChart(limit = 30)
-                else -> viewModel.loadTrack(text, limit = 30)
-            }
-        }
-
-        binding.findButton.setOnClickListener {
             when (val text = binding.editQuery.text.toString().trim()) {
                 "" -> viewModel.loadChart(limit = 30)
                 else -> viewModel.loadTrack(text, limit = 30)
