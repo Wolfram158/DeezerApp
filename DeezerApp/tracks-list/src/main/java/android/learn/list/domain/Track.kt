@@ -7,6 +7,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class Track(
     val id: Long,
+    val album: String,
     val title: String,
     val duration: Seconds,
     val linkToMp3: String,

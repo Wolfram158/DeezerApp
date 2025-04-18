@@ -13,7 +13,9 @@ import dagger.Component
         NetworkModule::class,
         DataModule::class,
         ViewModelModule::class,
-        MediaModule::class]
+        MediaModule::class,
+        UtilsModule::class
+    ]
 )
 interface ApplicationComponent {
     fun inject(app: App)

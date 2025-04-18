@@ -1,6 +1,6 @@
 package android.learn.utils
 
-typealias Seconds = Int
+typealias Seconds = Long
 
 @Suppress("DefaultLocale")
 fun formatTime(milliseconds: Long): String {

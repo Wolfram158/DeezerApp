@@ -1,6 +1,8 @@
 package android.learn.deezer
 
 import android.content.Context
+import android.learn.deezer.TrackFragment.Companion.POSITION
+import android.learn.deezer.TrackFragment.Companion.TRACKS
 import android.learn.found.presentation.FoundTracksViewModel
 import android.learn.list.databinding.FragmentTracksBinding
 import android.learn.list.domain.Track
@@ -36,8 +38,8 @@ class FoundTracksFragment : Fragment() {
             override fun onGotoTrack(position: Int, tracks: List<Track>) {
                 val navController = findNavController()
                 val bundle = Bundle().apply {
-                    putParcelableArray(TrackFragment.TRACKS, tracks.toTypedArray())
-                    putInt(TrackFragment.POSITION, position)
+                    putParcelableArray(TRACKS, tracks.toTypedArray())
+                    putInt(POSITION, position)
                 }
                 navController.navigate(R.id.action_navigation_home_to_navigation_track, bundle)
             }

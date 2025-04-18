@@ -12,7 +12,8 @@
         tools:layout="@layout/fragment_tracks" >
         <action
             android:id="@+id/action_navigation_home_to_navigation_track"
-            app:destination="@id/navigation_track" />
+            app:destination="@id/navigation_track"
+            app:popUpTo="@id/navigation_home" />
     </fragment>
 
     <fragment
@@ -27,6 +28,10 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        tools:layout="@layout/fragment_tracks" />
+        tools:layout="@layout/fragment_tracks" >
+        <action
+            android:id="@+id/action_navigation_track_to_navigation_home2"
+            app:destination="@id/navigation_home" />
+    </fragment>
 
 </navigation>

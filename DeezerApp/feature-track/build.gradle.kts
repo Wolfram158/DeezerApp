@@ -39,10 +39,14 @@ android {
 
 dependencies {
 
+    implementation(project(":tracks-list"))
+
     implementation(libs.dagger)
     implementation(libs.dagger.support)
     ksp(libs.dagger.compiler)
     ksp(libs.dagger.processor)
+
+    implementation(libs.coil)
 
     implementation(libs.media3.ui)
     implementation(libs.media3.exoplayer)
