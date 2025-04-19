@@ -1,4 +1,4 @@
-package android.learn.deezer
+package android.learn.deezer.presentation
 
 import android.content.Context
 import android.learn.deezer.databinding.FragmentTrackBinding

@@ -1,6 +1,7 @@
 package android.learn.deezer.di
 
 import android.learn.found.presentation.FoundTracksViewModel
+import android.learn.loaded.presentation.LoadedTracksViewModel
 import android.learn.track.presentation.TrackViewModel
 import androidx.lifecycle.ViewModel
 import dagger.Binds
@@ -18,4 +19,9 @@ interface ViewModelModule {
     @IntoMap
     @ViewModelKey(TrackViewModel::class)
     fun bindTrackViewModel(viewModel: TrackViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(LoadedTracksViewModel::class)
+    fun bindLoadedTracksViewModel(viewModel: LoadedTracksViewModel): ViewModel
 }

@@ -1,4 +1,4 @@
-package android.learn.deezer
+package android.learn.deezer.presentation
 
 import android.app.Application
 import android.learn.deezer.di.ApplicationComponent

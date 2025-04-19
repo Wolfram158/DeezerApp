@@ -1,8 +1,9 @@
-package android.learn.deezer
+package android.learn.deezer.presentation
 
 import android.content.Context
-import android.learn.deezer.TrackFragment.Companion.POSITION
-import android.learn.deezer.TrackFragment.Companion.TRACKS
+import android.learn.deezer.R
+import android.learn.deezer.presentation.TrackFragment.Companion.POSITION
+import android.learn.deezer.presentation.TrackFragment.Companion.TRACKS
 import android.learn.found.presentation.FoundTracksViewModel
 import android.learn.list.databinding.FragmentTracksBinding
 import android.learn.list.domain.Track

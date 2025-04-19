@@ -1,9 +1,10 @@
 package android.learn.deezer.di
 
 import android.app.Application
-import android.learn.deezer.App
-import android.learn.deezer.FoundTracksFragment
-import android.learn.deezer.TrackFragment
+import android.learn.deezer.presentation.App
+import android.learn.deezer.presentation.FoundTracksFragment
+import android.learn.deezer.presentation.LoadedTracksFragment
+import android.learn.deezer.presentation.TrackFragment
 import dagger.BindsInstance
 import dagger.Component
 
@@ -23,6 +24,8 @@ interface ApplicationComponent {
     fun inject(fragment: FoundTracksFragment)
 
     fun inject(fragment: TrackFragment)
+
+    fun inject(fragment: LoadedTracksFragment)
 
     @Component.Factory
     interface Factory {

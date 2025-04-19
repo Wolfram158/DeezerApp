@@ -1,5 +1,6 @@
-package android.learn.deezer
+package android.learn.deezer.presentation
 
+import android.learn.deezer.R
 import android.learn.deezer.databinding.ActivityMainBinding
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

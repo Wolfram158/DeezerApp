@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -33,6 +34,14 @@ android {
 }
 
 dependencies {
+
+    implementation(project(":tracks-list"))
+
+    implementation(libs.dagger)
+    implementation(libs.dagger.support)
+    implementation(libs.androidx.media3.session)
+    ksp(libs.dagger.compiler)
+    ksp(libs.dagger.processor)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

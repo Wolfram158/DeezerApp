@@ -45,6 +45,7 @@ dependencies {
     implementation(project(":utils"))
     implementation(project(":tracks-list"))
     implementation(project(":feature-track"))
+    implementation(project(":feature-loaded-tracks"))
 
     implementation(libs.coil)
 
