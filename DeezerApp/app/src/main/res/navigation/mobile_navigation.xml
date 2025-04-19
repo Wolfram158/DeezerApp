@@ -3,27 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/navigation_found">
 
     <fragment
-        android:id="@+id/navigation_home"
+        android:id="@+id/navigation_found"
         android:name="android.learn.deezer.presentation.FoundTracksFragment"
-        android:label="@string/found"
-        tools:layout="@layout/fragment_tracks" >
+        android:label="@string/found" >
         <action
             android:id="@+id/action_navigation_home_to_navigation_track"
-            app:destination="@id/navigation_track"
-            app:popUpTo="@id/navigation_home" />
-        <action
-            android:id="@+id/action_navigation_home_to_navigation_loaded"
-            app:destination="@id/navigation_loaded" />
+            app:destination="@id/navigation_track" />
     </fragment>
 
     <fragment
         android:id="@+id/navigation_loaded"
         android:name="android.learn.deezer.presentation.LoadedTracksFragment"
-        android:label="@string/loaded"
-        tools:layout="@layout/fragment_tracks" >
+        android:label="@string/loaded" >
         <action
             android:id="@+id/action_navigation_loaded_to_navigation_track"
             app:destination="@id/navigation_track" />
@@ -34,11 +28,7 @@
         android:name="android.learn.deezer.presentation.TrackFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        tools:layout="@layout/fragment_tracks" >
-        <action
-            android:id="@+id/action_navigation_track_to_navigation_home2"
-            app:destination="@id/navigation_home" />
+        android:layout_weight="1" >
     </fragment>
 
 </navigation>

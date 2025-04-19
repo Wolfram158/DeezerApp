@@ -1,5 +1,6 @@
 package android.learn.list.presentation.adapter
 
+import android.learn.list.R
 import android.learn.list.databinding.ItemTrackBinding
 import android.learn.list.domain.Track
 import android.view.LayoutInflater
@@ -25,7 +26,9 @@ class TracksAdapter(private val onGotoTrackListener: OnGotoTrackListener) :
         with(holder.binding) {
             trackName.text = item.title
             trackAuthor.text = item.artistName
-            trackImage.load(item.albumImageLink)
+            trackImage.load(item.albumImageLink) {
+                error(R.drawable.music)
+            }
             root.setOnClickListener {
                 onGotoTrackListener.onGotoTrack(position, currentList)
             }

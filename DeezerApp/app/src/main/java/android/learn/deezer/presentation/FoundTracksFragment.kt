@@ -38,12 +38,14 @@ class FoundTracksFragment : Fragment() {
     private val adapter by lazy {
         TracksAdapter(onGotoTrackListener = object : TracksAdapter.OnGotoTrackListener {
             override fun onGotoTrack(position: Int, tracks: List<Track>) {
-                val navController = findNavController()
                 val bundle = Bundle().apply {
                     putParcelableArray(TRACKS, tracks.toTypedArray())
                     putInt(POSITION, position)
                 }
-                navController.navigate(R.id.action_navigation_home_to_navigation_track, bundle)
+                findNavController().navigate(
+                    R.id.action_navigation_home_to_navigation_track,
+                    bundle
+                )
             }
         })
     }
@@ -76,7 +78,7 @@ class FoundTracksFragment : Fragment() {
         binding.editQuery.addTextChangedListener {
             viewModel.searchDebounced(it.toString(), limit = 30, 500L)
         }
-        
+
         setupRecyclerView()
         setupViewModel()
         setupButtons()
