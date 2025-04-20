@@ -1,7 +1,5 @@
 package android.learn.track.data
 
-import android.content.Intent
-import android.util.Log
 import androidx.media3.common.MediaItem
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.session.MediaSession
