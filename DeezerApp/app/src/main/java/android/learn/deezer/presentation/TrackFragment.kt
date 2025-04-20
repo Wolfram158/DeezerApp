@@ -126,6 +126,6 @@ class TrackFragment : Fragment() {
     companion object {
         const val POSITION = "position"
         const val TRACKS = "tracks"
-
     }
+
 }

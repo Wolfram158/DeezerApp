@@ -11,13 +11,13 @@ import dagger.Provides
 
 @Module
 class MediaModule {
-    @ApplicationScope
+    // @ApplicationScope
     @Provides
     fun provideSessionToken(application: Application): SessionToken {
         return SessionToken(application, ComponentName(application, MediaService::class.java))
     }
 
-    @ApplicationScope
+    // @ApplicationScope
     @Provides
     fun provideControllerFuture(
         application: Application,
