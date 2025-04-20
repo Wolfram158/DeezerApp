@@ -76,7 +76,7 @@ class FoundTracksFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.editQuery.addTextChangedListener {
-            viewModel.searchDebounced(it.toString(), limit = 30, 500L)
+            viewModel.searchDebounced(it.toString(), limit = LIMIT, 500L)
         }
 
         setupRecyclerView()
@@ -86,7 +86,7 @@ class FoundTracksFragment : Fragment() {
         if (viewModel.content !is FoundTracksViewModel.Content.Empty) {
             adapter.submitList((viewModel.content as FoundTracksViewModel.Content.Tracks).tracks)
         } else if (savedInstanceState == null) {
-            viewModel.loadChart(limit = 30)
+            viewModel.loadChart(limit = LIMIT)
         }
 
     }
@@ -94,8 +94,8 @@ class FoundTracksFragment : Fragment() {
     private fun setupButtons() {
         binding.tryLoadButton.setOnClickListener {
             when (val text = binding.editQuery.text.toString().trim()) {
-                "" -> viewModel.loadChart(limit = 30)
-                else -> viewModel.loadTrack(text, limit = 30)
+                "" -> viewModel.loadChart(limit = LIMIT)
+                else -> viewModel.loadTrack(text, limit = LIMIT)
             }
         }
     }
@@ -136,6 +136,8 @@ class FoundTracksFragment : Fragment() {
     }
 
     companion object {
+        private const val LIMIT = 30
+
         fun newInstance() =
             FoundTracksFragment().apply {
             }

@@ -9,12 +9,11 @@ import android.learn.list.domain.Track
 import android.learn.list.presentation.ViewModelFactory
 import android.learn.list.presentation.adapter.TracksAdapter
 import android.learn.loaded.presentation.LoadedTracksViewModel
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -67,14 +66,23 @@ class LoadedTracksFragment : Fragment() {
         return binding.root
     }
 
-    @RequiresApi(Build.VERSION_CODES.Q)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         setupRecyclerView()
 
-        lifecycleScope.launch {
-            adapter.submitList(viewModel.loadTracks())
+        if (viewModel.content !is LoadedTracksViewModel.Content.Empty) {
+            adapter.submitList((viewModel.content as LoadedTracksViewModel.Content.Tracks).tracks)
+        } else if (savedInstanceState == null) {
+            lifecycleScope.launch {
+                adapter.submitList(viewModel.loadTracks())
+            }
+        }
+
+        binding.editQuery.addTextChangedListener {
+            lifecycleScope.launch {
+                adapter.submitList(viewModel.filterTracks(it.toString()))
+            }
         }
     }
 

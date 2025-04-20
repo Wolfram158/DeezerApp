@@ -80,6 +80,15 @@ class LoadedTracksRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun filterTracks(tracks: List<Track>, template: String): List<Track> {
+        return withContext(Dispatchers.Default) {
+            tracks.filter {
+                listOf(it.title, it.album, it.artistName).map { it1 -> it1.lowercase() }
+                    .any { it2 -> it2.contains(template.lowercase()) }
+            }
+        }
+    }
+
     private fun <T> extractValue(
         cursor: Cursor,
         default: T,
