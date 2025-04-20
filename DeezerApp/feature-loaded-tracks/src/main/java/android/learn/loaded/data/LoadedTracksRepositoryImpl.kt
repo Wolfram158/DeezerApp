@@ -6,7 +6,6 @@ import android.learn.list.domain.Track
 import android.learn.loaded.domain.LoadedTracksRepository
 import android.os.Build
 import android.provider.MediaStore
-import androidx.annotation.RequiresApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -15,20 +14,22 @@ import kotlin.random.Random
 class LoadedTracksRepositoryImpl @Inject constructor(
     private val application: Application
 ) : LoadedTracksRepository {
-    @RequiresApi(Build.VERSION_CODES.Q)
     override suspend fun loadTracks(): List<Track> {
         return withContext(Dispatchers.IO) {
             val tracks = mutableListOf<Track>()
-            val uri = MediaStore.Audio.Media.getContentUri(
-                MediaStore.VOLUME_EXTERNAL,
-            )
+            val uri = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                MediaStore.Audio.Media.getContentUri(
+                    MediaStore.VOLUME_EXTERNAL_PRIMARY
+                )
+            } else {
+                MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
+            }
             val projection = arrayOf(
                 MediaStore.Audio.Media.DATA,
                 MediaStore.Audio.Media.ARTIST,
                 MediaStore.Audio.Media.TITLE,
                 MediaStore.Audio.Media.ALBUM,
-                MediaStore.Audio.Media.DURATION,
-                MediaStore.Audio.Media._ID
+                MediaStore.Audio.Media.DURATION
             )
             val cursor = application.contentResolver.query(
                 uri,
@@ -97,7 +98,7 @@ class LoadedTracksRepositoryImpl @Inject constructor(
     }
 
     companion object {
-        private const val DEFAULT_STRING = "UNDEFINED"
+        private const val DEFAULT_STRING = "Undefined"
         private const val DEFAULT_LONG = 0L
     }
 }

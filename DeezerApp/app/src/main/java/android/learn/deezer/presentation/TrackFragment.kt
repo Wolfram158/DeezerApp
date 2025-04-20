@@ -12,14 +12,12 @@ import android.view.ViewGroup
 import androidx.annotation.OptIn
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.session.MediaController
 import com.google.common.util.concurrent.ListenableFuture
 import com.google.common.util.concurrent.MoreExecutors
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.properties.Delegates
 
@@ -72,10 +70,31 @@ class TrackFragment : Fragment() {
         return binding.root
     }
 
-    @OptIn(UnstableApi::class)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setupPlayer()
+
+        binding.loadButton.setOnClickListener {
+            val item = controller.currentMediaItem
+            item?.mediaMetadata?.let {
+                viewModel.saveLocally(
+                    Track(
+                        artistName = it.artist.toString(),
+                        album = it.albumTitle.toString(),
+                        albumImageLink = it.artworkUri.toString(),
+                        duration = (it.durationMs ?: 0) / 1000,
+                        id = 0,
+                        linkToMp3 = item.mediaId,
+                        title = it.title.toString()
+                    )
+                )
+            }
+        }
+    }
+
+    @OptIn(UnstableApi::class)
+    private fun setupPlayer() {
         controllerFuture.addListener({
             _controller = controllerFuture.get()
             controller.mediaMetadata.let {
@@ -93,17 +112,15 @@ class TrackFragment : Fragment() {
                     }
                 }
             })
-            lifecycleScope.launch {
-                viewModel.loadMediaItem(
-                    tracks[position]
-                ) { controller.addMediaItem(it) }
-                controller.prepare()
-                controller.play()
-                binding.playerView.player = controller
-                binding.playerView.showController()
-            }
-        }, MoreExecutors.directExecutor())
+            viewModel.loadMediaItem(
+                tracks[position]
+            ) { controller.addMediaItem(it) }
+            controller.prepare()
+            controller.play()
+            binding.playerView.player = controller
+            binding.playerView.showController()
 
+        }, MoreExecutors.directExecutor())
     }
 
     companion object {
