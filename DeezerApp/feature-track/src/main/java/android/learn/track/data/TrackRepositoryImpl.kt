@@ -80,8 +80,10 @@ class TrackRepositoryImpl @Inject constructor(
         withContext(Dispatchers.IO) {
             insertData(track)?.let { uri ->
                 getAudioBytes(track.linkToMp3).let { bytes ->
-                    application.contentResolver.openOutputStream(uri).use {
-                        (it ?: throw RuntimeException("Unexpected error")).write(bytes)
+                    bytes?.let {
+                        application.contentResolver.openOutputStream(uri).use {
+                            (it ?: throw RuntimeException("Unexpected error")).write(bytes)
+                        }
                     }
                 }
             }
@@ -89,10 +91,10 @@ class TrackRepositoryImpl @Inject constructor(
     }
 
     private fun getAudioBytes(link: String): ByteArray? {
-        val request = Request.Builder()
-            .url(link)
-            .build()
         return try {
+            val request = Request.Builder()
+                .url(link)
+                .build()
             val response: Response = client.newCall(request).execute()
             if (response.isSuccessful) {
                 response.body?.bytes()
