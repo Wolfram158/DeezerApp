@@ -37,6 +37,6 @@ binding.tryLoadButton.setOnClickListener {
             }
 }
 ```
-Нарушен принцип single responsibility. Cледовало сделать так, чтобы вызывалась только функция ```loadTracks``` от аргумента ```binding.editQuery.text.toString()``` вне зависимости от его значения.
-9. Граф зависимостей модулей имеет следующий вид:
+Нарушен принцип single responsibility. Cледовало сделать так, чтобы вызывалась только функция ```loadTracks``` от аргумента ```binding.editQuery.text.toString()``` вне зависимости от его значения. </br>
+8. Граф зависимостей модулей имеет следующий вид:
    ![image](https://github.com/Wolfram158/DeezerApp/blob/main/image.png)
